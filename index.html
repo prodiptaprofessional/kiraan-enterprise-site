@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kiraan Enterprise</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -16,6 +17,7 @@
             <a href="#products">Products</a>
             <a href="#about">About Us</a>
             <a href="#contact">Contact</a>
+            <a href="cart.html">Cart</a>
         </nav>
     </header>
 
@@ -27,12 +29,7 @@
 
         <section id="products">
             <h2>Our Products</h2>
-            <ul>
-                <li>Groceries</li>
-                <li>Household Supplies</li>
-                <li>Stationery</li>
-                <li>Electronics Accessories</li>
-            </ul>
+            <div id="product-list"></div>
         </section>
 
         <section id="about">
@@ -44,13 +41,39 @@
             <h2>Contact Us</h2>
             <p>Email: kiraanenterprise@example.com</p>
             <p>Phone: +91-7384065605</p>
-            <p>Address:Monimela Road </p>
+            <p>Address: Monimela Road</p>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2025 Kiraan Enterprise. All rights reserved.</p>
     </footer>
+
+    <script>
+        fetch('products.json')
+            .then(response => response.json())
+            .then(products => {
+                const productList = document.getElementById('product-list');
+                products.forEach(product => {
+                    const productEl = document.createElement('div');
+                    productEl.className = 'product-item';
+                    productEl.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>Price: ₹${product.price}</p>
+                        <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
+                    `;
+                    productList.appendChild(productEl);
+                });
+            });
+
+        function addToCart(id, name, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ id, name, price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Item added to cart!');
+        }
+    </script>
 </body>
 
 </html>

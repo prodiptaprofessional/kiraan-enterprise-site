@@ -1,0 +1,6 @@
+[
+  { "id": 1, "name": "Amul Lassi", "price": 20, "image": "images/Lassi.jpg" },
+  { "id": 2, "name": "Lays", "price": 5, "image": "images/Lays.jpg" },
+  { "id": 3, "name": "Kurkure", "price": 5, "image": "images/Kurkure.jpg" },
+  { "id": 4, "name": "", "price": 750, "image": "images/electronics.jpg" }
+]

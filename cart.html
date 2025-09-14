@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Kiraan Enterprise</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Kiraan Enterprise</h1>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Your Cart</h1>
+        <div id="cartItems"></div>
+
+        <h2>Place Order</h2>
+        <form action="https://formspree.io/f/yourformid" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required><br>
+            <input type="email" name="email" placeholder="Your Email" required><br>
+            <textarea name="order" id="orderDetails" placeholder="Your cart details..." readonly></textarea><br>
+            <button type="submit">Submit Order</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Kiraan Enterprise. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.onload = () => {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsDiv = document.getElementById('cartItems');
+            let orderSummary = '';
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+            } else {
+                cart.forEach(item => {
+                    cartItemsDiv.innerHTML += `
+                        <div class="cart-item">
+                            <strong>${item.name}</strong> - ₹${item.price}
+                        </div>
+                    `;
+                    orderSummary += `${item.name} - ₹${item.price}\n`;
+                });
+            }
+
+            document.getElementById('orderDetails').value = orderSummary;
+        };
+    </script>
+</body>
+
+</html>
